@@ -1,11 +1,11 @@
-import clubs
+import poker_game
 
 
 def test_split_pot() -> None:
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     hands = [
         ["6c", "8s"],
@@ -19,8 +19,8 @@ def test_split_pot() -> None:
         ["3d", "4s"],
     ]
     comm_cards = ["4d", "5h", "7c", "Ac", "Kh"]
-    top_cards = [clubs.Card(card) for hand in hands for card in hand] + [
-        clubs.Card(card) for card in comm_cards
+    top_cards = [poker_game.Card(card) for hand in hands for card in hand] + [
+        poker_game.Card(card) for card in comm_cards
     ]
     dealer.deck = dealer.deck.trick(top_cards)
 
@@ -72,9 +72,9 @@ def test_split_pot() -> None:
 
 def test_all_in() -> None:
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     hands = [
         ["6c", "8s"],
@@ -88,8 +88,8 @@ def test_all_in() -> None:
         ["3d", "4s"],
     ]
     comm_cards = ["4d", "5h", "7c", "Ac", "Kh"]
-    top_cards = [clubs.Card(card) for hand in hands for card in hand] + [
-        clubs.Card(card) for card in comm_cards
+    top_cards = [poker_game.Card(card) for hand in hands for card in hand] + [
+        poker_game.Card(card) for card in comm_cards
     ]
     dealer.deck = dealer.deck.trick(top_cards)
 
@@ -134,9 +134,9 @@ def test_all_in() -> None:
 
 def test_all_in_split_pot() -> None:
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     hands = [
         ["6c", "8s"],
@@ -150,8 +150,8 @@ def test_all_in_split_pot() -> None:
         ["3d", "4s"],
     ]
     comm_cards = ["4d", "5h", "7c", "Ac", "Kh"]
-    top_cards = [clubs.Card(card) for hand in hands for card in hand] + [
-        clubs.Card(card) for card in comm_cards
+    top_cards = [poker_game.Card(card) for hand in hands for card in hand] + [
+        poker_game.Card(card) for card in comm_cards
     ]
     dealer.deck = dealer.deck.trick(top_cards)
 

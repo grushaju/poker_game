@@ -4,7 +4,7 @@ from typing import Any, Iterator, List, Literal, Optional, Tuple, Type, TypedDic
 
 import numpy as np
 
-from clubs import error, poker, render
+from poker_game import error, poker, render
 
 
 class ObservationDict(TypedDict):

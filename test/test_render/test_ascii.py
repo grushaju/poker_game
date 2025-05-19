@@ -1,7 +1,7 @@
 import io
 from contextlib import redirect_stdout
 
-from clubs import poker, render
+from poker_game import poker, render
 
 
 def test_init() -> None:

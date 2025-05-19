@@ -15,14 +15,14 @@ import sys
 
 sys.path.insert(0, os.path.abspath(".."))
 
-import clubs  # noqa: E402
+import poker_game  # noqa: E402
 
 # -- Project information -----------------------------------------------------
 
-project = clubs.__name__
-copyright = clubs.__copyright__
-author = clubs.__author__
-version = clubs.__version__
+project = poker_game.__name__
+copyright = poker_game.__copyright__
+author = poker_game.__author__
+version = poker_game.__version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -60,8 +60,8 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 #
 html_theme = "nature"
 
-html_logo = "../clubs/render/resources/static/images/black_red_logo.svg"
-html_favicon = "../clubs/render/resources/static/images/black_red_logo.svg"
+html_logo = "../poker_game/render/resources/static/images/black_red_logo.svg"
+html_favicon = "../poker_game/render/resources/static/images/black_red_logo.svg"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

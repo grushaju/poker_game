@@ -5,7 +5,7 @@ import operator
 from timeit import default_timer as timer
 from typing import Dict, Iterable, Iterator, List, Optional, Tuple
 
-from clubs import error
+from poker_game import error
 
 from . import card
 

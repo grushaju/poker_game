@@ -3,7 +3,7 @@ cards from a standard 52 card poker deck"""
 import random
 from typing import Dict, List, Union
 
-from clubs import error
+from poker_game import error
 
 STR_RANKS: str = "23456789TJQKA"
 INT_RANKS: List[int] = list(range(13))
@@ -25,7 +25,7 @@ PRETTY_SUITS: Dict[int, str] = {
 }
 
 
-class Card:
+class Card(tuple):
     """Cards are represented as 32-bit integers. Most of the bits are used
     and have a specific meaning.
 
@@ -89,6 +89,13 @@ class Card:
         self._bin_str: str = f"{self._int:b}"
         self.suit = PRETTY_SUITS[suit_int]
         self.rank = STR_RANKS[rank_int]
+        self._rank_int = 12 - rank_int
+        self._suit_int = suit_int - 1
+
+
+    def __new__(self, string: str):
+        self.__init__(self, string)
+        return tuple.__new__(Card, (self._rank_int, self._suit_int))
 
     def __int__(self) -> int:
         return self._int

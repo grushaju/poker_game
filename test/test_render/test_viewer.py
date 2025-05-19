@@ -1,6 +1,6 @@
 import pytest
 
-from clubs import poker, render
+from poker_game import poker, render
 
 
 def test_base() -> None:

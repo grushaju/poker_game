@@ -1,8 +1,8 @@
-import clubs
+import poker_game
 
 
 def main():
-    evaluator = clubs.poker.Evaluator(4, 13, 5)
+    evaluator = poker_game.poker.Evaluator(4, 13, 5)
     avg_time = evaluator.speed_test()
     print(f"Average time per evaluation: {avg_time}")
     print(f"Evaluations per second = {1.0/avg_time}")

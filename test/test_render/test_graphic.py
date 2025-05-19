@@ -6,7 +6,7 @@ from typing import Optional
 
 import pytest
 
-from clubs.render import graphic
+from poker_game.render import graphic
 
 
 def test_init() -> None:

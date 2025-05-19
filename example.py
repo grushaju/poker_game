@@ -1,13 +1,13 @@
 import random
 import time
 
-import clubs
+import poker_game
 
 
 def main():
     # 1-2 no limit 6 player texas hold'em
-    config = clubs.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
-    dealer = clubs.poker.Dealer(**config)
+    config = poker_game.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
+    dealer = poker_game.poker.Dealer(**config)
     obs = dealer.reset()
 
     dealer.render()

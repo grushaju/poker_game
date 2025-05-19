@@ -1,6 +1,6 @@
 import pytest
 
-from clubs import error, poker
+from poker_game import error, poker
 
 
 def test_init() -> None:

@@ -2,18 +2,18 @@ import random
 
 import pytest
 
-import clubs
-from clubs import error
+import poker_game
+from poker_game import error
 
 
 def test_game() -> None:
 
-    config = clubs.configs.LEDUC_TWO_PLAYER
+    config = poker_game.configs.LEDUC_TWO_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     dealer.deck = dealer.deck.trick(
-        [clubs.Card("Qs"), clubs.Card("Ks"), clubs.Card("Qh")]
+        [poker_game.Card("Qs"), poker_game.Card("Ks"), poker_game.Card("Qh")]
     )
 
     obs = dealer.reset(reset_button=True, reset_stacks=True)
@@ -38,9 +38,9 @@ def test_game() -> None:
 
 def test_heads_up() -> None:
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_TWO_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_TWO_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     obs = dealer.reset(reset_button=True, reset_stacks=True)
 
@@ -58,9 +58,9 @@ def test_heads_up() -> None:
 
 
 def test_reset() -> None:
-    config = clubs.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     obs = dealer.reset(reset_button=True, reset_stacks=True)
     assert obs["action"] == 3
@@ -77,7 +77,7 @@ def test_reset() -> None:
 
 def test_init() -> None:
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_TWO_PLAYER.copy()
+    config = poker_game.configs.NO_LIMIT_HOLDEM_TWO_PLAYER.copy()
 
     blinds = config["blinds"]
     antes = config["antes"]
@@ -87,27 +87,27 @@ def test_init() -> None:
 
     config["blinds"] = [0]
     with pytest.raises(error.InvalidConfigError):
-        clubs.poker.Dealer(**config)
+        poker_game.poker.Dealer(**config)
     config["blinds"] = blinds
 
     config["antes"] = [0]
     with pytest.raises(error.InvalidConfigError):
-        clubs.poker.Dealer(**config)
+        poker_game.poker.Dealer(**config)
     config["antes"] = antes
 
     config["raise_sizes"] = [0]
     with pytest.raises(error.InvalidConfigError):
-        clubs.poker.Dealer(**config)
+        poker_game.poker.Dealer(**config)
     config["raise_sizes"] = raise_sizes
 
     config["num_raises"] = [0]
     with pytest.raises(error.InvalidConfigError):
-        clubs.poker.Dealer(**config)
+        poker_game.poker.Dealer(**config)
     config["num_raises"] = num_raises
 
     config["num_community_cards"] = [0]
     with pytest.raises(error.InvalidConfigError):
-        clubs.poker.Dealer(**config)
+        poker_game.poker.Dealer(**config)
     config["num_community_cards"] = num_community_cards
 
     config["blinds"] = 0
@@ -116,7 +116,7 @@ def test_init() -> None:
     config["num_raises"] = 0
     config["num_community_cards"] = 0
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     assert list(dealer.blinds) == [0, 0]
     assert list(dealer.antes) == [0, 0]
@@ -132,15 +132,15 @@ def test_init() -> None:
 
     config["raise_sizes"] = "lala"  # type: ignore
     with pytest.raises(error.InvalidRaiseSizeError):
-        clubs.poker.Dealer(**config)
+        poker_game.poker.Dealer(**config)
     config["raise_sizes"] = raise_sizes
 
 
 def test_str_repr() -> None:
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_TWO_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_TWO_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     assert len(str(dealer)) == 1242
     string = (
@@ -152,9 +152,9 @@ def test_str_repr() -> None:
 
 def test_init_step() -> None:
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_TWO_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_TWO_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     with pytest.raises(error.TableResetError):
         dealer.step(0)
@@ -164,8 +164,8 @@ def test_win_probabilities() -> None:
 
     random.seed(1)
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
-    dealer = clubs.poker.Dealer(**config)
+    config = poker_game.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
+    dealer = poker_game.poker.Dealer(**config)
     dealer.reset()
 
     dealer.step(-1)

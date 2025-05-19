@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./clubs/render/resources/static/images/black_red_logo.svg" alt="Logo" width=200px>
+<img src="poker_game/render/resources/static/images/black_red_logo.svg" alt="Logo" width=200px>
 
 </div>
 
@@ -23,35 +23,35 @@ Install using `pip install clubs`. To enable webserver rendering (see example be
 ```python
 import random
 
-import clubs
+import poker_game
 
-config = clubs.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
-dealer = clubs.poker.Dealer(**config)
+config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
+dealer = poker_game.poker.Dealer(**config)
 obs = dealer.reset()
 
 while True:
-    call = obs['call']
-    min_raise = obs['min_raise']
-    max_raise = obs['max_raise']
+  call = obs['call']
+  min_raise = obs['min_raise']
+  max_raise = obs['max_raise']
 
-    rand = random.random()
-    if rand < 0.1:
-        bet = 0
-    elif rand < 0.80:
-        bet = call
-    else:
-        bet = random.randint(min_raise, max_raise)
+  rand = random.random()
+  if rand < 0.1:
+    bet = 0
+  elif rand < 0.80:
+    bet = call
+  else:
+    bet = random.randint(min_raise, max_raise)
 
-    obs, rewards, done = dealer.step(bet)
-    if all(done):
-        break
+  obs, rewards, done = dealer.step(bet)
+  if all(done):
+    break
 
 print(rewards)
 ```
 
 ## Configuration
 
-The type of poker game is defined using a configuration dictionary. See [configs.py](./clubs/configs.py) for some example configurations. A configuration dictionary has to have the following key value structure:
+The type of poker game is defined using a configuration dictionary. See [configs.py](poker_game/configs.py) for some example configurations. A configuration dictionary has to have the following key value structure:
 
 * num_players
   * int: maximum number of players
@@ -92,18 +92,23 @@ clubs adopts the [Open AI gym](https://github.com/openai/gym) interface. See [cl
 
 ## Universal Deuces
 
-The hand evaluator is heavily inspired by the [deuces](https://github.com/worldveil/deuces/) library. The basic logic is identical, but the evaluator and lookup table are generalized to work for any deck configuration with number of ranks <= 13 and number of suits <= 4 and poker hands with 5 or less cards. See the poker [README](./clubs/poker/README.md) for further details.
+The hand evaluator is heavily inspired by the [deuces](https://github.com/worldveil/deuces/) library. The basic logic is identical, but the evaluator and lookup table are generalized to work for any deck configuration with number of ranks <= 13 and number of suits <= 4 and poker hands with 5 or less cards. See the poker [README](poker_game/poker/README.md) for further details.
 
 Some speed was sacrificed for the sake of better usability. Nonetheless, the evaluator is still quite fast on modern machines (Intel(R) Core(TM) i5-8250U):
 
 ```python
->>> import clubs
->>> evaluator = clubs.poker.Evaluator(4, 13, 5)
->>> avg_time = evaluator.speed_test()
->>> print(f"Average time per evaluation: {avg_time}")
-Average time per evaluation: 1.3986515504075214e-06
->>> print(f"Evaluations per second = {1.0/avg_time}")
-Evaluations per second = 714974.362062254
+>> > import poker_game
+>> > evaluator = poker_game.poker.Evaluator(4, 13, 5)
+>> > avg_time = evaluator.speed_test()
+>> > print(f"Average time per evaluation: {avg_time}")
+Average
+time
+per
+evaluation: 1.3986515504075214e-06
+>> > print(f"Evaluations per second = {1.0 / avg_time}")
+Evaluations
+per
+second = 714974.362062254
 ```
 
 ## Visualize
@@ -112,7 +117,7 @@ Evaluations per second = 714974.362062254
 
 <div align="center">
 
-<img src="./clubs/render/resources/static/images/render_example.png" alt="Render Example" width=1000>
+<img src="poker_game/render/resources/static/images/render_example.png" alt="Render Example" width=1000>
 
 </div>
 

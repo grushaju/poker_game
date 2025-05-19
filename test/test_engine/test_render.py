@@ -10,15 +10,15 @@ from xml.etree import ElementTree as et
 
 import pytest
 
-import clubs
-from clubs import error, poker, render
+import poker_game
+from poker_game import error, poker, render
 
 
 @pytest.fixture
-def dealer() -> clubs.Dealer:
-    config = clubs.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
+def dealer() -> poker_game.Dealer:
+    config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = clubs.Dealer(**config)
+    dealer = poker_game.Dealer(**config)
 
     def _render_config() -> render.viewer.RenderConfig:
         return {
@@ -41,12 +41,12 @@ def dealer() -> clubs.Dealer:
     return dealer
 
 
-def test_error(dealer: clubs.Dealer) -> None:
+def test_error(dealer: poker_game.Dealer) -> None:
     with pytest.raises(error.InvalidRenderModeError):
         dealer.render("lala")
 
 
-def test_ascii(dealer: clubs.Dealer) -> None:
+def test_ascii(dealer: poker_game.Dealer) -> None:
     dealer.viewer = None
     stdout = io.StringIO()
     with redirect_stdout(stdout):
@@ -62,7 +62,7 @@ def test_ascii(dealer: clubs.Dealer) -> None:
     assert all(sub_string in string for sub_string in sub_strings)
 
 
-def test_human(dealer: clubs.Dealer) -> None:
+def test_human(dealer: poker_game.Dealer) -> None:
     dealer.render()
 
     assert isinstance(dealer.viewer, render.GraphicViewer)

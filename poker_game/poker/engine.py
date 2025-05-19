@@ -9,7 +9,7 @@ if sys.version_info >= (3, 8):
 else:
     from typing_extensions import Literal, TypedDict
 
-from clubs import error, poker, render
+from poker_game import error, poker, render
 
 
 class ObservationDict(TypedDict):
@@ -246,7 +246,7 @@ class Dealer:
 
     def reset(
         self, reset_button: bool = False, reset_stacks: bool = False
-    ) -> ObservationDict:
+    ) -> (ObservationDict, dict):
         """Resets the table. Shuffles the deck, deals new hole cards
         to all players, moves the button and collects blinds and antes.
 
@@ -294,7 +294,8 @@ class Dealer:
             self.button = (self.button + 1) % self.num_players
 
         self.deck.shuffle()
-        self.community_cards = self.deck.draw(self.num_community_cards[0])
+        # self.community_cards = self.deck.draw(self.num_community_cards[0])
+        self.community_cards = self.deck.draw(sum(self.num_community_cards))
         self.history = []
         self.hole_cards = [
             self.deck.draw(self.num_hole_cards) for _ in range(self.num_players)
@@ -316,7 +317,7 @@ class Dealer:
         self._move_action()
         self._move_action()
 
-        return self._observation(False)
+        return (self._observation(False), {})
 
     def step(self, bet: float) -> Tuple[ObservationDict, List[int], List[bool]]:
         """Advances poker game to next player. If the bet is 0, it is
@@ -635,7 +636,8 @@ class Dealer:
             "button": self.button,
             "call": call,
             "community_cards": self.community_cards,
-            "hole_cards": self.hole_cards[self.action],
+            # "hole_cards": self.hole_cards[self.action],
+            "hole_cards": self.hole_cards,
             "max_raise": max_raise,
             "min_raise": min_raise,
             "pot": self.pot,

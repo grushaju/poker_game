@@ -1,19 +1,19 @@
-import clubs
+import poker_game
 
 
 def test_bet_cleaning() -> None:
-    assert clubs.poker.Dealer._clean_bet(0, 2, 4, 200) == 0
-    assert clubs.poker.Dealer._clean_bet(-1, 2, 4, 200) == 0
-    assert clubs.poker.Dealer._clean_bet(1, 0, 4, 200) == 0
-    assert clubs.poker.Dealer._clean_bet(20, 2, 4, 200) == 20
-    assert clubs.poker.Dealer._clean_bet(2000, 0, 4, 200) == 200
+    assert poker_game.poker.Dealer._clean_bet(0, 2, 4, 200) == 0
+    assert poker_game.poker.Dealer._clean_bet(-1, 2, 4, 200) == 0
+    assert poker_game.poker.Dealer._clean_bet(1, 0, 4, 200) == 0
+    assert poker_game.poker.Dealer._clean_bet(20, 2, 4, 200) == 20
+    assert poker_game.poker.Dealer._clean_bet(2000, 0, 4, 200) == 200
 
 
 def test_limit_bet_size() -> None:
 
-    config = clubs.configs.LIMIT_HOLDEM_SIX_PLAYER
+    config = poker_game.configs.LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     _ = dealer.reset(reset_button=True, reset_stacks=True)
     bet = 2.1
@@ -44,9 +44,9 @@ def test_limit_bet_size() -> None:
 
 
 def test_all_in_bet_size() -> None:
-    config = clubs.configs.NO_LIMIT_HOLDEM_TWO_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_TWO_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     dealer.stacks[0] -= 150
     dealer.stacks[1] += 150
@@ -60,9 +60,9 @@ def test_all_in_bet_size() -> None:
 
 def test_incomplete_raise() -> None:
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_SIX_PLAYER.copy()
+    config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER.copy()
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     dealer.stacks[1] = dealer.stacks[1] - 190
     dealer.stacks[2] = dealer.stacks[2] + 190
@@ -96,9 +96,9 @@ def test_incomplete_raise() -> None:
 
 def test_pot_limit_bet_size() -> None:
 
-    config = clubs.configs.POT_LIMIT_OMAHA_SIX_PLAYER
+    config = poker_game.configs.POT_LIMIT_OMAHA_SIX_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     obs = dealer.reset(reset_button=True, reset_stacks=True)
     assert obs["min_raise"] == 4
@@ -120,9 +120,9 @@ def test_pot_limit_bet_size() -> None:
 
 def test_bet_rounding() -> None:
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     _ = dealer.reset(reset_button=True, reset_stacks=True)
 
@@ -154,9 +154,9 @@ def test_bet_rounding() -> None:
 
 def test_big_blind_raise_chance() -> None:
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     _ = dealer.reset(reset_button=True, reset_stacks=True)
 

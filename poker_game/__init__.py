@@ -1,10 +1,10 @@
-__version__ = "0.1.4"
-__author__ = "Ferdinand Schlatt"
+__version__ = "1.0.0"
+__author__ = "Pavel Grushin"
 __license__ = "GPL-3.0"
-__copyright__ = f"2022, {__author__}"
-__homepage__ = "https://github.com/fschlatt/clubs"
+__copyright__ = f"2025, {__author__}"
+__homepage__ = "https://github.com/grushaju/poker_game"
 __docs__ = (
-    "clubs is a general purpose python poker engine for running arbitrary poker "
+    "poker_game is a general purpose python poker engine for running arbitrary poker "
     "configurations with a built-in fast hand evaluator."
 )
 

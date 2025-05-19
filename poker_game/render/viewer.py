@@ -62,7 +62,7 @@ class PokerViewer:
 
         Examples
         --------
-        >>> from clubs import Card
+        >>> from poker_game import Card
         >>> config = {
         ...     'action': 0, # int - position of active player
         ...     'active': [True, True], # List[bool] - list of active players

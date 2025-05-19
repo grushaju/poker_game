@@ -1,15 +1,15 @@
 import random
 
-import clubs
+import poker_game
 
 
 def test_button_move() -> None:
 
     random.seed(42)
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_TWO_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_TWO_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
     obs = dealer.reset(reset_button=True, reset_stacks=False)
 
     assert obs["button"] == 0
@@ -28,9 +28,9 @@ def test_button_move() -> None:
 
     random.seed(42)
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
     obs = dealer.reset(reset_button=True, reset_stacks=True)
 
     assert obs["button"] == 0
@@ -52,9 +52,9 @@ def test_inactive_players() -> None:
 
     random.seed(42)
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
     obs = dealer.reset(reset_button=True, reset_stacks=True)
 
     bet = 200

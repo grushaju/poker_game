@@ -2,15 +2,15 @@ import random
 
 import pytest
 
-import clubs
-from clubs import error
+import poker_game
+from poker_game import error
 
 
 def test_all_but_one_fold() -> None:
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     obs = dealer.reset(reset_button=True, reset_stacks=True)
 
@@ -33,9 +33,9 @@ def test_all_but_one_fold() -> None:
 def test_all_all_in() -> None:
     random.seed(42)
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     _ = dealer.reset(reset_button=True, reset_stacks=True)
 
@@ -60,9 +60,9 @@ def test_bet_after_round_end() -> None:
 
     random.seed(42)
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     _ = dealer.reset(reset_button=True, reset_stacks=True)
 
@@ -85,9 +85,9 @@ def test_too_few_players() -> None:
 
     random.seed(42)
 
-    config = clubs.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
+    config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = clubs.poker.Dealer(**config)
+    dealer = poker_game.poker.Dealer(**config)
 
     _ = dealer.reset(reset_button=True, reset_stacks=True)
 
