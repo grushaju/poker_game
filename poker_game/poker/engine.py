@@ -319,7 +319,7 @@ class Dealer:
 
         return (self._observation(False), {})
 
-    def step(self, bet: float) -> Tuple[ObservationDict, List[int], List[bool]]:
+    def step(self, bet: float) -> Tuple[ObservationDict, List[int], List[bool], dict]:
         """Advances poker game to next player. If the bet is 0, it is
         either considered a check or fold, depending on the previous
         action. The given bet is always rounded to the closest valid bet
@@ -363,7 +363,7 @@ class Dealer:
                 done = self._done()
                 payouts = self._payouts()
                 observation = self._observation(all(done))
-                return observation, payouts, done
+                return observation, payouts, done, {}
             raise error.TableResetError("call reset() before calling first step()")
 
         fold = bet < 0
@@ -427,7 +427,7 @@ class Dealer:
                 )
             ]
         observation = self._observation(all(done))
-        return observation, payouts, done
+        return observation, payouts, done, {}
 
     def _render_config(self) -> render.viewer.RenderConfig:
         action = int(self.action)

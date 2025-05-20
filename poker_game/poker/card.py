@@ -1,6 +1,7 @@
 """Classes and functions to create and manipulate cards and lists of
 cards from a standard 52 card poker deck"""
 import random
+import math
 from typing import Dict, List, Union
 
 from poker_game import error
@@ -90,8 +91,7 @@ class Card(tuple):
         self.suit = PRETTY_SUITS[suit_int]
         self.rank = STR_RANKS[rank_int]
         self._rank_int = 12 - rank_int
-        self._suit_int = suit_int - 1
-
+        self._suit_int = int(math.log2(suit_int))
 
     def __new__(self, string: str):
         self.__init__(self, string)
