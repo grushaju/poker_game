@@ -15,10 +15,10 @@ from poker_game import error, poker, render
 
 
 @pytest.fixture
-def dealer() -> poker_game.Dealer:
+def dealer() -> poker_game.OldDealer:
     config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = poker_game.Dealer(**config)
+    dealer = poker_game.OldDealer(**config)
 
     def _render_config() -> render.viewer.RenderConfig:
         return {
@@ -41,12 +41,12 @@ def dealer() -> poker_game.Dealer:
     return dealer
 
 
-def test_error(dealer: poker_game.Dealer) -> None:
+def test_error(dealer: poker_game.OldDealer) -> None:
     with pytest.raises(error.InvalidRenderModeError):
         dealer.render("lala")
 
 
-def test_ascii(dealer: poker_game.Dealer) -> None:
+def test_ascii(dealer: poker_game.OldDealer) -> None:
     dealer.viewer = None
     stdout = io.StringIO()
     with redirect_stdout(stdout):
@@ -62,7 +62,7 @@ def test_ascii(dealer: poker_game.Dealer) -> None:
     assert all(sub_string in string for sub_string in sub_strings)
 
 
-def test_human(dealer: poker_game.Dealer) -> None:
+def test_human(dealer: poker_game.OldDealer) -> None:
     dealer.render()
 
     assert isinstance(dealer.viewer, render.GraphicViewer)

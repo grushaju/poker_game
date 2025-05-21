@@ -10,7 +10,7 @@ def test_all_but_one_fold() -> None:
 
     config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = poker_game.poker.Dealer(**config)
+    dealer = poker_game.poker.OldDealer(**config)
 
     obs = dealer.reset(reset_button=True, reset_stacks=True)
 
@@ -35,7 +35,7 @@ def test_all_all_in() -> None:
 
     config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = poker_game.poker.Dealer(**config)
+    dealer = poker_game.poker.OldDealer(**config)
 
     _ = dealer.reset(reset_button=True, reset_stacks=True)
 
@@ -62,7 +62,7 @@ def test_bet_after_round_end() -> None:
 
     config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = poker_game.poker.Dealer(**config)
+    dealer = poker_game.poker.OldDealer(**config)
 
     _ = dealer.reset(reset_button=True, reset_stacks=True)
 
@@ -87,7 +87,7 @@ def test_too_few_players() -> None:
 
     config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = poker_game.poker.Dealer(**config)
+    dealer = poker_game.poker.OldDealer(**config)
 
     _ = dealer.reset(reset_button=True, reset_stacks=True)
 

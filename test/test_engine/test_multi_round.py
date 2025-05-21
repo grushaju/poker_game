@@ -9,7 +9,7 @@ def test_button_move() -> None:
 
     config = poker_game.configs.NO_LIMIT_HOLDEM_TWO_PLAYER
 
-    dealer = poker_game.poker.Dealer(**config)
+    dealer = poker_game.poker.OldDealer(**config)
     obs = dealer.reset(reset_button=True, reset_stacks=False)
 
     assert obs["button"] == 0
@@ -30,7 +30,7 @@ def test_button_move() -> None:
 
     config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = poker_game.poker.Dealer(**config)
+    dealer = poker_game.poker.OldDealer(**config)
     obs = dealer.reset(reset_button=True, reset_stacks=True)
 
     assert obs["button"] == 0
@@ -54,7 +54,7 @@ def test_inactive_players() -> None:
 
     config = poker_game.configs.NO_LIMIT_HOLDEM_SIX_PLAYER
 
-    dealer = poker_game.poker.Dealer(**config)
+    dealer = poker_game.poker.OldDealer(**config)
     obs = dealer.reset(reset_button=True, reset_stacks=True)
 
     bet = 200

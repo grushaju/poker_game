@@ -26,7 +26,7 @@ class ObservationDict(TypedDict):
     street_commits: List[int]
 
 
-class Dealer:
+class OldDealer:
     """Runs a range of different of poker games dependent on the
     given configuration. Supports limit, no limit and pot limit
     bet sizing, arbitrary deck sizes, arbitrary hole and community
@@ -95,19 +95,19 @@ class Dealer:
     Examples
     --------
 
-        >>> Dealer( # 1-2 Heads Up No Limit Texas Hold'em
+        >>> OldDealer( # 1-2 Heads Up No Limit Texas Hold'em
         ...     num_players=2, num_streets=4, blinds=[1, 2], antes=0,
         ...     raise_sizes=float('inf'), num_raises=float('inf'),
         ...     num_suits=4, num_ranks=13, num_hole_cards=2,
         ...     mandatory_num_hole_cards=0, start_stack=200
         ... )
-        >>> Dealer( # 1-2 6 Player PLO
+        >>> OldDealer( # 1-2 6 Player PLO
         ...     num_players=6, num_streets=4, blinds=[0, 1, 2, 0, 0, 0],
         ...     antes=0, raise_sizes='pot', num_raises=float('inf'),
         ...     num_suits=4, num_ranks=13, num_hole_cards=4,
         ...     mandatory_num_hole_cards=2, start_stack=200
         ... )
-        >>> Dealer( # 1-2 Heads Up No Limit Short Deck
+        >>> OldDealer( # 1-2 Heads Up No Limit Short Deck
         ...     num_players=2, num_streets=4, blinds=[1, 2], antes=0,
         ...     raise_sizes=float('inf'), num_raises=float('inf'),
         ...     num_suits=4, num_ranks=9, num_hole_cards=2,
@@ -265,7 +265,7 @@ class Dealer:
         Examples
         --------
 
-        >>> dealer = Dealer(**configs.LEDUC_TWO_PLAYER)
+        >>> dealer = OldDealer(**configs.LEDUC_TWO_PLAYER)
         >>> dealer.reset()
         ... {'action': 1,
         ...  'active': [True, True],
@@ -341,7 +341,7 @@ class Dealer:
         Examples
         --------
 
-        >>> dealer = Dealer(**configs.LEDUC_TWO_PLAYER)
+        >>> dealer = OldDealer(**configs.LEDUC_TWO_PLAYER)
         >>> obs = dealer.reset()
         >>> dealer.step(0)
         ... ({'action': 0,
@@ -736,7 +736,7 @@ class Dealer:
                     break
         return payouts
 
-    def _move_action(self) -> "Dealer":
+    def _move_action(self) -> "OldDealer":
         action = self.action
         for idx in range(1, self.num_players + 1):
             action = (self.action + idx) % self.num_players

@@ -5,7 +5,7 @@ def test_split_pot() -> None:
 
     config = poker_game.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
 
-    dealer = poker_game.poker.Dealer(**config)
+    dealer = poker_game.poker.OldDealer(**config)
 
     hands = [
         ["6c", "8s"],
@@ -74,7 +74,7 @@ def test_all_in() -> None:
 
     config = poker_game.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
 
-    dealer = poker_game.poker.Dealer(**config)
+    dealer = poker_game.poker.OldDealer(**config)
 
     hands = [
         ["6c", "8s"],
@@ -136,7 +136,7 @@ def test_all_in_split_pot() -> None:
 
     config = poker_game.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
 
-    dealer = poker_game.poker.Dealer(**config)
+    dealer = poker_game.poker.OldDealer(**config)
 
     hands = [
         ["6c", "8s"],

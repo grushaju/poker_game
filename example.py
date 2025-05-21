@@ -7,7 +7,7 @@ import poker_game
 def main():
     # 1-2 no limit 6 player texas hold'em
     config = poker_game.configs.NO_LIMIT_HOLDEM_NINE_PLAYER
-    dealer = poker_game.poker.Dealer(**config)
+    dealer = poker_game.poker.OldDealer(**config)
     obs = dealer.reset()
 
     dealer.render()
