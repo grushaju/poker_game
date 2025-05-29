@@ -159,6 +159,12 @@ class Emulator(object):
         message = MessageBuilder.build_game_result_message(dummy_config, game_state["table"].seats)["message"]
         return [self.create_event(message)]
 
+
+    def get_state_before_play (self, player_pos, game_state):
+        msg = MessageBuilder.build_ask_message(player_pos, game_state)["message"]
+        return msg["valid_actions"], msg["hole_card"], msg["round_state"]
+
+
     def run_until_ask_player(self, game_state, uuid, update_obs):
         mailbox = []
         while game_state["street"] != Const.Street.FINISHED:
