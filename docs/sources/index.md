@@ -1,38 +1,14 @@
-Make PyPokerEngie use [deuces's](https://github.com/worldveil/deuces) card, deck and evaluator and increase performance
+# PyPokerEngine: poker AI development from today
+PyPokerEngine is a simple framework for Texas hold'em AI development.
 
-
-# PyPokerEngine
-
-[![Build Status](https://travis-ci.org/ishikota/PyPokerEngine.svg?branch=master)](https://travis-ci.org/ishikota/PyPokerEngine)
-[![Coverage Status](https://coveralls.io/repos/github/ishikota/PyPokerEngine/badge.svg?branch=master)](https://coveralls.io/github/ishikota/PyPokerEngine?branch=master)
-[![PyPI](https://img.shields.io/pypi/v/PyPokerEngine.svg?maxAge=2592000)](https://badge.fury.io/py/PyPokerEngine)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/ishikota/kyoka/blob/master/LICENSE.md)
-
-Poker engine for AI development in Python
-
-# Tutorial
-This tutorial leads you to start point of poker AI development!!
-#### Outline of Tutorial
-1. Create simple AI which always returns same action.
-2. Play AI vs AI poker game and see its result.
-
-#### Installation
-Before start AI development, we need to install *PyPokerEngine*.  
-You can use pip like this.
-```
-pip install git+git://github.com/YanickSchraner/PyPokerEngine
-```
-This library supports Python 2 (2.7) and Python3 (3.5).
-
-## Create first AI
-In this section, we create simple AI which always declares *CALL* action.  
+## Getting Started - create our first AI
+To get used to this library, we will create simple AI which always declares *CALL* action.  
 To create poker AI, what we do is following
 
-1. Create PokerPlayer class which is subclass of [`PypokerEngine.players.BasePokerPlayer`](https://github.com/ishikota/PyPokerEngine/blob/master/pypokerengine/players/base_poker_player.py).
+1. Create PokerPlayer class which is subclass of [`PypokerEngine.players.BasePokerPlayer`](https://github.com/ishikota/PyPokerEngine/blob/master/pypokerengine/players.py).
 2. Implement abstract methods which inherit from `BasePokerPlayer` class.
 
-
-Here is the code of our first AI. (We assume you saved this file at `~/dev/fish_player.py`)  
+Here is the code of our first AI.  
 
 ```python
 from pypokerengine.players import BasePokerPlayer
@@ -60,17 +36,15 @@ class FishPlayer(BasePokerPlayer):  # Do not forget to make parent class as "Bas
 
     def receive_round_result_message(self, winners, hand_info, round_state):
         pass
-
-
 ```
 If you are interested in what each callback method receives, See [AI_CALLBACK_FORMAT.md](https://github.com/ishikota/PyPokerEngine/blob/master/AI_CALLBACK_FORMAT.md).
 
-## Play AI vs AI poker game
-Ok, let's play the poker game by using our created `FishPlayer`.  
+### Play AI vs AI poker game
+Ok, let's play the poker game by using our first AI `FishPlayer`.  
 To start the game, what we need to do is following
 
 1. Define game rule through `Config` object (ex. start stack, blind amount, ante, blind_structures)
-2. Register your AI with `Config` object.
+2. Register AI with `Config` object.
 3. Start the game and get game result
 
 Here is the code to play poker for 10 round with our created `FishPlayer`.
@@ -83,7 +57,7 @@ config.register_player(name="p2", algorithm=FishPlayer())
 config.register_player(name="p3", algorithm=FishPlayer())
 game_result = start_poker(config, verbose=1)
 ```
-We set `verbose=1`, so simple game logs are output after `start_poker` call.
+We set `verbose=1` in `start_poker` method, so simple game logs will be output after `start_poker` call.
 ```
 Started the round 1
 Street "preflop" started. (community card = [])
@@ -120,12 +94,21 @@ Finally, let's check the game result !!
 }
 ```
 
+## Installation
+You can install by pip.
+```
+pip install PyPokerEngine
+```
+This library supports Python 2 (2.7) and Python3 (3.5).
+
 ## GUI support
 We also provide GUI application. You can play poker with your AI on browser.  
 Please check [PyPokerGUI](https://github.com/ishikota/PyPokerGUI).
 
-<img src="https://github.com/ishikota/PyPokerGUI/blob/master/screenshot/poker_demo.gif" width=500 />
+## Next Steps
+To develop more practical AI, these tutorials would be helpful.
 
-# Documentation
-For mode detail, please checkout [doc site](https://ishikota.github.io/PyPokerEngine/)
+- [Participate in the game](./tutorial/participate_in_the_game.md): create player you can control from console
+- [Estimate strength of your hands](./tutorial/estimate_card_strength.md): PyPokerEngine provides api to estimate card strength by MonteCarloSimulation.
+- [Learn how to use Emulator](./documentation/about_emulator.md) learn about emulator which provides you fine-grained control of the game.
 
