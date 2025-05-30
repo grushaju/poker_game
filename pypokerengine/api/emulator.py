@@ -165,7 +165,7 @@ class Emulator(object):
         return msg["valid_actions"], msg["hole_card"], msg["round_state"]
 
 
-    def run_until_ask_player(self, game_state, uuid, update_obs):
+    def run_until_round_finish_with_player_ask(self, game_state, uuid, update_obs):
         mailbox = []
         while game_state["street"] != Const.Street.FINISHED:
             next_player_pos = game_state["next_player"]
@@ -191,6 +191,28 @@ class Emulator(object):
         if self._is_last_round(game_state, self.game_rule):
             events += self._generate_game_result_event(game_state)
         return game_state, events
+
+
+    def run_until_game_finish_with_player_asking(self, game_state, uuid, update_obs):
+        mailbox = []
+        event_box = []
+        if game_state["street"] != Const.Street.FINISHED:
+            game_state, events = self.run_until_round_finish_with_player_ask(game_state, uuid, update_obs)
+            event_box += events
+        while True:
+            if self.cashgame:
+                players = game_state["table"].seats.players
+                for player in players:
+                    player.cashgame_stack = player.cashgame_stack + player.stack - self.initial_stack
+                    player.stack = self.initial_stack
+            game_state, events = self.start_new_round(game_state)
+            event_box += events
+            if Event.GAME_FINISH == events[-1]["type"]: break
+            game_state, events = self.run_until_round_finish_with_player_ask(game_state, uuid, update_obs)
+            event_box += events
+            if Event.GAME_FINISH == events[-1]["type"]: break
+        event_box = [e for e in event_box if e]
+        return game_state, event_box
 
 
 def update_blind_level(ante, sb_amount, round_count, blind_structure):
