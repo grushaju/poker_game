@@ -159,6 +159,8 @@ class Emulator(object):
         message = MessageBuilder.build_game_result_message(dummy_config, game_state["table"].seats)["message"]
         return [self.create_event(message)]
 
+    def generate_game_result_event(self, game_state):
+        return self._generate_game_result_event(game_state)
 
     def get_state_before_play (self, player_pos, game_state):
         msg = MessageBuilder.build_ask_message(player_pos, game_state)["message"]
@@ -199,19 +201,26 @@ class Emulator(object):
         if game_state["street"] != Const.Street.FINISHED:
             game_state, events = self.run_until_round_finish_with_player_ask(game_state, uuid, update_obs)
             event_box += events
-        while True:
-            if self.cashgame:
-                players = game_state["table"].seats.players
-                for player in players:
-                    player.cashgame_stack = player.cashgame_stack + player.stack - self.initial_stack
-                    player.stack = self.initial_stack
-            game_state, events = self.start_new_round(game_state)
-            event_box += events
-            if Event.GAME_FINISH == events[-1]["type"]: break
-            game_state, events = self.run_until_round_finish_with_player_ask(game_state, uuid, update_obs)
-            event_box += events
-            if Event.GAME_FINISH == events[-1]["type"]: break
-        event_box = [e for e in event_box if e]
+            next_player_pos = game_state["next_player"]
+            next_player_uuid = game_state["table"].seats.players[next_player_pos].uuid
+            if next_player_uuid == uuid:
+                return game_state, event_box
+        else:
+            while True:
+                if self.cashgame:
+                    players = game_state["table"].seats.players
+                    for player in players:
+                        player.cashgame_stack = player.cashgame_stack + player.stack - self.initial_stack
+                        player.stack = self.initial_stack
+                game_state, events = self.start_new_round(game_state)
+                event_box += events
+                if Event.GAME_FINISH == events[-1]["type"]:
+                    break
+                game_state, events = self.run_until_round_finish_with_player_ask(game_state, uuid, update_obs)
+                event_box += events
+                if Event.GAME_FINISH == events[-1]["type"]:
+                    break
+            event_box = [e for e in event_box if e]
         return game_state, event_box
 
 
